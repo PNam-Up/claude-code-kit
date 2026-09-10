@@ -1,0 +1,6 @@
+# 내부 작업물 — 배포본에 포함하지 않는다
+_backup_*/
+demo/out/
+dist/*.zip
+테스트-확인사항.txt
+.DS_Store
