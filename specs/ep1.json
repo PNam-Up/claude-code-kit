@@ -6,6 +6,12 @@
   "release": "v1.0",
   "summary": "내 PC에 Claude Code 기반 AI 비서를 깔고 텔레그램으로 말을 건다. 다른 회차의 전제.",
   "requires": [],
+  "check": {
+    "mac": "~/.claude-telegram-bridge/ 폴더와 config.env 가 있는지",
+    "win": "%USERPROFILE%\\.claude-telegram-bridge\\config.env 가 있는지",
+    "ask": "텔레그램 봇에게 말을 걸어 답이 오는지 물어본다",
+    "note": "봇이 답하면 깔린 것이다. 폴더만 있고 답이 없으면 브릿지가 꺼져 있는 것이니 다시 띄운다."
+  },
   "files": [
     {
       "name": "ClaudeCode-Mac.zip",

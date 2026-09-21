@@ -8,6 +8,12 @@
   "requires": [
     1
   ],
+  "check": {
+    "mac": "~/.claude-telegram-bridge/bridge.py 가 있는지 (1화 구버전은 bridge.sh 다)",
+    "win": "%USERPROFILE%\\.claude-telegram-bridge\\bridge.py 가 있는지",
+    "ask": "매일 밤 지출 정산이 오고 있는지 물어본다",
+    "note": "bridge.sh 만 있으면 1화 버전이다. 3화 키트를 받아 실행하면 .old 로 백업하고 갈아끼운다."
+  },
   "files": [
     {
       "name": "2-setup-skill.md",

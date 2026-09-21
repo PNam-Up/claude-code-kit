@@ -8,6 +8,10 @@
   "requires": [
     1
   ],
+  "check": {
+    "ask": "지금 받고 있는 알림이 있는지, 어떤 걸 받고 있는지 물어본다",
+    "note": "알림은 사람마다 고른 것이 달라 카테고리별로 따로 확인해야 한다."
+  },
   "files": [
     {
       "name": "0-notify-basics.md",
@@ -19,35 +23,41 @@
     {
       "name": "1-news-trends.md",
       "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v3.0/1-news-trends.md",
-      "role": "뉴스·트렌드"
+      "role": "뉴스·트렌드",
+      "contains": "아침 뉴스 요약(07:00) · 트렌드 펄스(6시간마다)"
     },
     {
       "name": "2-money-market.md",
       "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v3.0/2-money-market.md",
-      "role": "주식·환율"
+      "role": "주식·환율",
+      "contains": "장 마감 브리핑(16:00) · 장 미리보기(07:05)"
     },
     {
       "name": "3-realestate.md",
       "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v3.0/3-realestate.md",
-      "role": "청약·매물"
+      "role": "청약·매물",
+      "contains": "청약 알리미(월 08:10) · 매물 알리미(토 09:10)"
     },
     {
       "name": "4-culture-tickets.md",
       "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v3.0/4-culture-tickets.md",
-      "role": "공연·티켓"
+      "role": "공연·티켓",
+      "contains": "이번 주 공연 브리핑(20:00) · 티켓 오픈 감시(몇 분마다)"
     },
     {
       "name": "5-daily-life.md",
       "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v3.0/5-daily-life.md",
-      "role": "생활"
+      "role": "생활",
+      "contains": "내일 날씨+일정(19:00) · 정부 지원금(08:05) · 채용 공고(08:15)"
     },
     {
       "name": "6-fun.md",
       "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v3.0/6-fun.md",
-      "role": "취미"
+      "role": "취미",
+      "contains": "로또 번호 추천(월 07:10) · 당첨 확인(토 21:30, 일 12:10)"
     }
   ],
-  "choose": "0번은 반드시 받고, 1~6번은 사용자가 고른 것만 받는다. 어떤 알림을 받고 싶은지 먼저 물어볼 것.",
+  "choose": "0번은 반드시 받는다. 1~6번은 사용자가 고른 것만 받되, 고르게 할 때 각 항목의 contains 를 그대로 읽어 줘서 무엇이 언제 오는지 알고 고르게 한다.",
   "steps": [
     {
       "n": 1,
