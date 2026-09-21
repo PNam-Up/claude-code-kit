@@ -1,0 +1,47 @@
+{
+  "spec_version": "1.0",
+  "episode": 1,
+  "title": "AI 비서 설치",
+  "video_id": "s07l4UYO3Qs",
+  "release": "v1.0",
+  "summary": "내 PC에 Claude Code 기반 AI 비서를 깔고 텔레그램으로 말을 건다. 다른 회차의 전제.",
+  "requires": [],
+  "files": [
+    {
+      "name": "ClaudeCode-Mac.zip",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v1.0/ClaudeCode-Mac.zip",
+      "when": "맥을 쓰면"
+    },
+    {
+      "name": "ClaudeCode-Win.zip",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v1.0/ClaudeCode-Win.zip",
+      "when": "윈도우를 쓰면"
+    }
+  ],
+  "steps": [
+    {
+      "n": 1,
+      "actor": "ai",
+      "do": "쓰는 운영체제를 물어 맞는 zip 을 받고 압축을 푼다"
+    },
+    {
+      "n": 2,
+      "actor": "human",
+      "do": "텔레그램 BotFather 에서 새 봇을 만들고 토큰을 알려준다",
+      "why": "본인 계정으로만 발급된다. 대신 만들 수 없다.",
+      "guide": "텔레그램에서 @BotFather 검색 → /newbot → 이름 정하기 → 나오는 토큰 문자열 복사"
+    },
+    {
+      "n": 3,
+      "actor": "human",
+      "do": "만든 봇에게 아무 말이나 한 번 보낸다",
+      "why": "봇이 먼저 말을 걸 수 없다. 사용자가 먼저 말해야 대화방이 열린다."
+    },
+    {
+      "n": 4,
+      "actor": "ai",
+      "do": "설치 스크립트를 실행하고 토큰을 넣어 브릿지를 띄운다"
+    }
+  ],
+  "verify": "텔레그램에서 봇에게 말을 걸면 답이 온다."
+}

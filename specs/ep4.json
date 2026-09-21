@@ -1,0 +1,70 @@
+{
+  "spec_version": "1.0",
+  "episode": 4,
+  "title": "원하는 알림 받아보기",
+  "video_id": "2QFId5PBwm8",
+  "release": "v3.0",
+  "summary": "뉴스·주식·부동산·공연 등 내가 받고 싶은 알림만 골라 정해진 시각에 받는다.",
+  "requires": [
+    1
+  ],
+  "files": [
+    {
+      "name": "0-notify-basics.md",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v3.0/0-notify-basics.md",
+      "role": "공통 뼈대",
+      "required": true,
+      "read_first": true
+    },
+    {
+      "name": "1-news-trends.md",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v3.0/1-news-trends.md",
+      "role": "뉴스·트렌드"
+    },
+    {
+      "name": "2-money-market.md",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v3.0/2-money-market.md",
+      "role": "주식·환율"
+    },
+    {
+      "name": "3-realestate.md",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v3.0/3-realestate.md",
+      "role": "청약·매물"
+    },
+    {
+      "name": "4-culture-tickets.md",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v3.0/4-culture-tickets.md",
+      "role": "공연·티켓"
+    },
+    {
+      "name": "5-daily-life.md",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v3.0/5-daily-life.md",
+      "role": "생활"
+    },
+    {
+      "name": "6-fun.md",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v3.0/6-fun.md",
+      "role": "취미"
+    }
+  ],
+  "choose": "0번은 반드시 받고, 1~6번은 사용자가 고른 것만 받는다. 어떤 알림을 받고 싶은지 먼저 물어볼 것.",
+  "steps": [
+    {
+      "n": 1,
+      "actor": "human",
+      "do": "어떤 알림을 받고 싶은지 고른다",
+      "why": "취향이라 대신 정할 수 없다. 카테고리를 보여 주고 고르게 한다."
+    },
+    {
+      "n": 2,
+      "actor": "ai",
+      "do": "0-notify-basics.md 와 고른 카테고리 파일을 받아 읽는다"
+    },
+    {
+      "n": 3,
+      "actor": "ai",
+      "do": "받을 시각을 물어 정하고 알림을 등록한다"
+    }
+  ],
+  "verify": "정한 시각에 고른 알림이 텔레그램으로 온다. 바로 확인하려면 한 번 수동 실행해 본다."
+}

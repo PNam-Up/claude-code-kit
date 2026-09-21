@@ -1,0 +1,47 @@
+{
+  "spec_version": "1.0",
+  "episode": 5,
+  "title": "여행 계획 짜기",
+  "video_id": "v8NQ7VfUM64",
+  "release": "v4.0",
+  "summary": "여행 일정을 AI가 객관식으로 물어 가며 짜고, 이동할 시각에 알림까지 보낸다.",
+  "requires": [
+    1
+  ],
+  "recommends": [
+    4
+  ],
+  "files": [
+    {
+      "name": "0-travel-planner.md",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v4.0/0-travel-planner.md",
+      "role": "여행 계획 뼈대",
+      "required": true,
+      "read_first": true
+    }
+  ],
+  "steps": [
+    {
+      "n": 1,
+      "actor": "ai",
+      "do": "0-travel-planner.md 를 받아 읽는다"
+    },
+    {
+      "n": 2,
+      "actor": "human",
+      "do": "어디로 며칠 가는지 알려준다. 안 정했으면 그것부터 물어봐 달라고 하면 된다.",
+      "why": "여행지와 기간은 사람이 정한다."
+    },
+    {
+      "n": 3,
+      "actor": "ai",
+      "do": "이동 수단·숙소·관심사·예산을 객관식으로 하나씩 물어 일정을 짠다"
+    },
+    {
+      "n": 4,
+      "actor": "ai",
+      "do": "(4화 알림이 깔려 있으면) 이동 시각에 맞춰 알림을 걸어 준다"
+    }
+  ],
+  "verify": "일정표가 나오고, 알림까지 걸었다면 해당 시각에 텔레그램이 온다."
+}

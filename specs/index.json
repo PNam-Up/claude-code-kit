@@ -1,0 +1,13 @@
+{
+  "spec_version": "1.0",
+  "name": "편남 설치 명세 색인",
+  "how_to_use": "유튜브 링크에서 영상 ID(11자)를 뽑아 아래 episodes 에서 찾은 뒤, 그 spec 주소를 읽고 그대로 따른다.",
+  "base": "https://raw.githubusercontent.com/PNam-Up/claude-code-kit/main/specs/",
+  "episodes": [
+    {"video_id": "s07l4UYO3Qs", "episode": 1, "title": "AI 비서 설치",      "spec": "ep1.json"},
+    {"video_id": "Cz48K6WR2to", "episode": 2, "title": "티켓 알림",          "spec": "ep2.json"},
+    {"video_id": "GfTsXNSDoFM", "episode": 3, "title": "가계부 자동화",      "spec": "ep3.json"},
+    {"video_id": "2QFId5PBwm8", "episode": 4, "title": "원하는 알림 받아보기", "spec": "ep4.json"},
+    {"video_id": "v8NQ7VfUM64", "episode": 5, "title": "여행 계획 짜기",      "spec": "ep5.json"}
+  ]
+}
