@@ -1,0 +1,50 @@
+{
+  "spec_version": "1.0",
+  "episode": 7,
+  "title": "주식 — 맡길 것과 물을 것",
+  "video_id": "S1Behj5pGwI",
+  "release": "v6.0",
+  "summary": "주식을 AI에게 어디까지 맡기고 어디부터 직접 물을지 — 미리 정해 둘 규칙 일곱 개와 AI에게 물을 질문 열다섯 개. 자동매매 봇이 아니다.",
+  "requires": [],
+  "recommends": [
+    1
+  ],
+  "check": {
+    "ask": "주식 기본 파일(0-stock-basics.md)을 AI 비서에게 준 적이 있는지 물어본다",
+    "note": "이 회차는 설치가 아니라 파일 한 장을 건네는 것이라, 다시 줘도 문제되지 않는다."
+  },
+  "files": [
+    {
+      "name": "0-stock-basics.md",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v6.0/0-stock-basics.md",
+      "role": "주식 규칙 일곱 · 질문 열다섯",
+      "required": true,
+      "read_first": true
+    }
+  ],
+  "steps": [
+    {
+      "n": 1,
+      "actor": "ai",
+      "do": "0-stock-basics.md 를 받아 읽고, 맨 위 '모의투자 · 투자 권유 아님' 안내를 사람에게 먼저 전한다"
+    },
+    {
+      "n": 2,
+      "actor": "human",
+      "do": "지금 어느 단계인지 고른다 — 고를 때 / 들어가기 전 / 규칙 정할 때 / 들고 있는 동안 / 끝나고",
+      "why": "질문 열다섯 개는 단계별로 쓰는 것이라 번호순으로 읽을 필요가 없다."
+    },
+    {
+      "n": 3,
+      "actor": "ai",
+      "do": "그 단계의 규칙·질문을 함께 채운다. 시세·실적 같은 숫자는 사람이 붙여 넣은 자료만 쓰고 지어내지 않는다"
+    },
+    {
+      "n": 4,
+      "actor": "human",
+      "do": "계좌번호·API 키·잔고 화면은 붙여 넣지 않는다. 금액이 필요하면 비율로 말한다",
+      "why": "계좌 정보는 본인만 다뤄야 한다."
+    }
+  ],
+  "verify": "사용자의 매도 기준·비중·리스크 한도가 규칙으로 적히고, 경고가 붙은 세 질문(주가·실적·뉴스)은 봇에 넣지 않는다는 안내까지 나왔으면 끝."
+}
