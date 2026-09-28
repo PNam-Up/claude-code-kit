@@ -9,6 +9,7 @@
     {"video_id": "GfTsXNSDoFM", "episode": 3, "title": "가계부 자동화",      "spec": "ep3.json"},
     {"video_id": "2QFId5PBwm8", "episode": 4, "title": "원하는 알림 받아보기", "spec": "ep4.json"},
     {"video_id": "v8NQ7VfUM64", "episode": 5, "title": "여행 계획 짜기",      "spec": "ep5.json"},
-    {"video_id": "S1Behj5pGwI", "episode": 7, "title": "주식 — 맡길 것과 물을 것", "spec": "ep7.json"}
+    {"video_id": "S1Behj5pGwI", "episode": 7, "title": "주식 — 맡길 것과 물을 것", "spec": "ep7.json"},
+    {"video_id": "JmP4kOd3JBg", "episode": 8, "title": "AI 직원 셋 — 조사 · 제작 · 검사", "spec": "ep8.json"}
   ]
 }
