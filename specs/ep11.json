@@ -1,0 +1,67 @@
+{
+  "spec_version": "1.0",
+  "episode": 11,
+  "title": "업무 보안 — 회사 자료 먼저 가리기(로컬 마스킹)",
+  "video_id": "ep80m1CI4dI",
+  "release": "v10.0",
+  "summary": "빈 양식(머리글만)으로 '어떤 칸을 가릴지' 규칙 파일을 만들면, 그다음부터는 AI 비서한테 평소처럼 시키기만 하면 된다. 클로드 코드 훅이 요청이 나가기 전에 내 컴퓨터에서 원본 엑셀을 가린 사본(가명 · 숨긴 시트·메모·작성자·피벗 캐시·외부 링크 제거)으로 만들고 AI는 그 사본만 읽는다. AI가 결과를 저장하면 내 컴퓨터가 원래 이름으로 자동 복원한다. 원본 폴더·가명표는 deny + 훅 + 샌드박스(맥·리눅스·WSL2)로 막고, 윈도우는 1~3단계로 안내. 파이썬 + openpyxl, 외부 전송 없음.",
+  "requires": [],
+  "recommends": [
+    1
+  ],
+  "check": {
+    "mac": "~/.maskit/maskit.py · maskit_hook.py · venv/ 가 있는지, ~/.claude/settings.json 에 회사자료/원본 deny 와 maskit_hook.py 훅 3개(UserPromptSubmit·PreToolUse·PostToolUse)가 있는지",
+    "win": "%USERPROFILE%\\.maskit\\maskit.py · maskit_hook.py · venv\\ 가 있는지, %USERPROFILE%\\.claude\\settings.json 에 회사자료/원본 deny 와 maskit_hook.py 훅 3개가 있는지",
+    "ask": "마스킹 파일(0-masking.md, 스킬 이름 pyeonnam-masking)이 이미 설치돼 있는지 확인한다",
+    "note": "다시 설치해도 프로그램(maskit.py·maskit_hook.py)만 덮어쓴다. masking_rules.json · maskit_hook.json · 회사자료 폴더 · 원본/_가명표 는 절대 건드리지 않는다. settings.json 은 합치기만 하고 덮어쓰지 않는다."
+  },
+  "files": [
+    {
+      "name": "0-masking.md",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v10.0/0-masking.md",
+      "role": "꼭 지킬 것 · 양식 학습 규칙 · 자동 가리기/복원(훅) · 숨은 정보 · 운영체제별 막는 수준(윈도우 1~3단계) · 못 막는 것 · 설치(훅·원본 차단 설정) · 참고 코드(maskit.py · maskit_hook.py)",
+      "required": true,
+      "read_first": true
+    }
+  ],
+  "steps": [
+    {
+      "n": 1,
+      "actor": "ai",
+      "do": "0-masking.md 를 받아 스킬로 설치한다(스킬 폴더에 pyeonnam-masking/SKILL.md 로). 스킬 기능이 없으면 사용자 지시 파일로 보관한다"
+    },
+    {
+      "n": 2,
+      "actor": "ai",
+      "do": "파일 맨 위 '꼭 지킬 것' 다섯 가지(회사 규정 우선 · 가리는 건 로컬 프로그램(훅) · 학습은 빈 양식 · 원본·가명표 차단과 '전부 허용' 잠금 · 한계)를 사람에게 먼저 전한다"
+    },
+    {
+      "n": 3,
+      "actor": "ai",
+      "do": "파일의 '설치' 순서대로 회사자료 폴더 구조를 만들고, 전용 환경(venv)에 openpyxl 설치 → 참고 코드 두 개를 ~/.maskit/maskit.py · maskit_hook.py 로 그대로 저장 → maskit_hook.json 에 회사자료 위치를 적는다"
+    },
+    {
+      "n": 4,
+      "actor": "ai",
+      "do": "~/.claude/settings.json 에 원본 폴더 deny(Read·Edit) · disableBypassPermissionsMode · 훅 3개(실제 절대 경로, exec 형식) · 샌드박스(맥·리눅스·WSL2만)를 기존 내용에 합쳐 넣는다(덮어쓰지 않는다). 윈도우면 '운영체제별로 막는 수준' 표를 보여주고 1~3단계 중 고르게 한다"
+    },
+    {
+      "n": 5,
+      "actor": "human",
+      "do": "파이썬 설치 창이 뜨면 직접 '설치'를 누르고, 설정 적용을 위해 AI 비서를 한 번 다시 시작한다. 윈도우 2단계를 고르면 계정 만들기·작업 스케줄러 등록을 함께 한다",
+      "why": "운영체제 설치 창·계정·재시작은 사람이 해야 한다."
+    },
+    {
+      "n": 6,
+      "actor": "ai",
+      "do": "maskit.py selftest 가 '모두 통과'인지, maskit_hook.py pre 에 원본 폴더 명령을 넣으면 deny 가 나오는지, 다시 시작한 뒤 원본/_차단확인.txt 읽기가 거절되는지 확인한다"
+    },
+    {
+      "n": 7,
+      "actor": "human",
+      "do": "자주 쓰는 엑셀의 빈 양식(머리글만)을 AI용/양식에 넣고 '이 양식 학습해줘'라고 말한 뒤, 특정 행만 가려야 하는지·합계에서 역산되는지 질문에 답한다. 그다음 원본 엑셀을 원본 폴더에 넣고 평소처럼 시켜 본다",
+      "why": "어떤 행이 민감한지는 빈 양식만 봐서는 AI도 모른다. 회사 사람만 안다."
+    }
+  ],
+  "verify": "selftest 가 '모두 통과'이고, 원본 폴더 파일 읽기·명령이 거절되고, 원본 엑셀로 일을 시키면 요청 앞에 '[maskit] … 먼저 가렸습니다' 안내가 붙고 AI가 _자동가림 사본을 읽고, 결과 저장 뒤 원본/복원 에 복원본이 생기면 끝."
+}
