@@ -2,7 +2,7 @@
   "spec_version": "1.0",
   "episode": 12,
   "title": "끝내주는 제안서 만들기 — 조사·작성·검사",
-  "video_id": "zxzooYpsYx4",
+  "video_id": "YrtXylDLPNk",
   "release": "v11.0",
   "summary": "질문 여섯 개(객관식)에 답하면 고객 정보를 먼저 가리고, 조사 담당이 출처 링크가 붙은 사실을 모으고(check_sources.py 로 링크·숫자·원문을 기계 확인), 목차 → 초안(고객 문제부터 · 한 장 요약 맨 앞 · 개조식) → 별도 맥락의 고객 역할 검사 AI가 결재를 막을 약점을 공격 → 수정·반영표 → 재검사(최대 3바퀴) → 본문/부록 정리 → 이름 되돌리기 → 워드·파워포인트(proposal_export.py). 금액은 사람이 정한다. 파이썬 + python-docx·python-pptx.",
   "requires": [],
