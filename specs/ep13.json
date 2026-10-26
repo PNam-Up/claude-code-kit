@@ -1,0 +1,81 @@
+{
+  "spec_version": "1.0",
+  "episode": 13,
+  "title": "자동 색인 폴더 — 넣기만 하면 AI 비서가 찾는다",
+  "video_id": "qSL0hluM5Nw",
+  "release": "v12.0",
+  "summary": "색인 폴더를 한 번 정하면(질문 1개) 거기 넣는 파일(추가·수정·삭제·이름 바꾸기)을 내 컴퓨터의 감시 프로그램(윈도우 작업 스케줄러 + watchdog / 맥 launchd)이 몇 초 안에 색인 카드로 만든다. 가명표는 색인 폴더 속 거래처 목록 엑셀에서 자동(이름은 화면에 안 찍음), 전화·이메일·주소는 패턴으로 가림. AI 비서는 원본 대신 카드 검색(sakin.py search --short, 1번 + 없을 때만 1번 더)만 보고 위치를 답하고(세부는 고른 파일 하나의 가린 사본으로), '열어줘'는 경로를 AI에 안 보내고 내 컴퓨터에서 연다. 원본 폴더·private 는 settings.json deny 로 차단. 뜻 검색은 로컬 모델(multilingual-e5-small 양자화, 130MB, 설치 때 한 번 받기). 외부 API 없음. 파이썬 venv + openpyxl·python-docx·python-pptx·pypdf·onnxruntime·numpy·tokenizers·watchdog.",
+  "requires": [],
+  "recommends": [
+    1,
+    6,
+    11
+  ],
+  "check": {
+    "mac": "~/.sakin/sakin.py · sakin_watch.py · embed.py · venv/ · models/e5-small/ 가 있는지, ~/Library/LaunchAgents/com.pyeonnam.sakin-watch.plist 가 있는지, '<파이썬> ~/.sakin/sakin_watch.py status ~/AI색인/색인' 이 카드 수를 내는지",
+    "win": "%USERPROFILE%\\.sakin\\sakin.py · sakin_watch.py · embed.py · venv\\ · models\\e5-small\\ 가 있는지, 작업 스케줄러에 PyeonnamSakinWatch 가 있는지, status 가 카드 수를 내는지",
+    "ask": "자동 색인 파일(0-auto-index.md, 스킬 이름 pyeonnam-auto-index)이 이미 설치돼 있는지 확인한다",
+    "note": "다시 설치해도 프로그램 파일만 덮어쓴다. venv·모델·카드 폴더(~/AI색인/색인)·가명표·색인 폴더 원본은 건드리지 않는다. settings.json 은 합치기만 한다."
+  },
+  "files": [
+    {
+      "name": "0-auto-index.md",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v12.0/0-auto-index.md",
+      "role": "꼭 지킬 것 · 왜(13화 실험 표) · 설치(질문 1개 → 받기 → 설치 스크립트 → 원본 차단 → 확인) · 찾기 지시문(검색 1번 · 판 묶음 · 열기) · 관리(상태·줄임말·가명표·끄기) · 한계",
+      "required": true,
+      "read_first": true
+    },
+    {
+      "name": "auto-index.zip",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v12.0/auto-index.zip",
+      "role": "sakin/ — sakin.py(카드·검색·열기) · sakin_watch.py(감시·가명표·상태·줄임말) · embed.py(로컬 뜻 검색·모델 받기) · words.json · install_windows.ps1 · install_mac.sh",
+      "required": true,
+      "read_first": false
+    }
+  ],
+  "steps": [
+    {
+      "n": 1,
+      "actor": "ai",
+      "do": "0-auto-index.md 를 받아 스킬로 설치한다(스킬 폴더에 pyeonnam-auto-index/SKILL.md 로). 스킬 기능이 없으면 사용자 지시 파일로 보관한다"
+    },
+    {
+      "n": 2,
+      "actor": "ai",
+      "do": "파일 맨 위 '꼭 지킬 것' 다섯 가지(원본은 AI가 안 엶 · 색인해줘 다시 안 함 · 전부 내 컴퓨터 · 이름은 가명, 질문 글은 AI로 감 · 위치까지 찾는 도구)를 사람에게 먼저 전한다"
+    },
+    {
+      "n": 3,
+      "actor": "ai",
+      "do": "질문 하나 — 어느 폴더를 색인 폴더로 할지(① 홈 아래 새 '회사자료' 추천 ② 쓰던 폴더). 맥 바탕화면·문서·다운로드·iCloud 는 안 된다고, 윈도우 OneDrive 는 '항상 이 장치에 유지'가 필요하다고 알린다"
+    },
+    {
+      "n": 4,
+      "actor": "ai",
+      "do": "auto-index.zip 을 받아 sakin 폴더를 ~/.sakin 으로 두고, 윈도우 install_windows.ps1 -Src <폴더> / 맥 install_mac.sh <폴더> 를 실행한다(venv·패키지·모델 130MB·가명표·첫 색인·자동 실행 등록, 1~2분)"
+    },
+    {
+      "n": 5,
+      "actor": "human",
+      "do": "파이썬이 없으면 설치 창에서 직접 '설치'(윈도우는 'Add python.exe to PATH' 체크)를 누르고, 끝나면 AI 비서에게 다시 하라고 한다",
+      "why": "운영체제 설치 창은 사람이 눌러야 한다."
+    },
+    {
+      "n": 6,
+      "actor": "ai",
+      "do": "~/.claude/settings.json permissions.deny 에 색인 폴더 Read·Edit 와 카드 폴더 private Read·Edit 를 합쳐 넣는다(덮어쓰지 않음)"
+    },
+    {
+      "n": 7,
+      "actor": "human",
+      "do": "클로드 코드를 한 번 다시 시작하고, 색인 폴더에 아무 파일이나 하나 넣는다",
+      "why": "차단 설정은 다시 시작해야 적용되고, 넣기 시험은 사람이 해야 '넣기만 하면 된다'를 확인할 수 있다."
+    },
+    {
+      "n": 8,
+      "actor": "ai",
+      "do": "sakin_watch.py status 로 카드 수와 최근 기록 '추가 1' 을 확인하고, '이렇게 물어보세요' 예시 네 개와 '열어줘'·줄임말 알려 주기를 안내한다"
+    }
+  ],
+  "verify": "status 가 '카드 N장'을 내고, 색인 폴더에 파일 하나를 넣은 뒤 10초 안에 최근 기록에 '추가 1'이 찍히며, '○○ 찾아줘'에 카드 번호와 위치로 답하면 끝."
+}
