@@ -1,0 +1,70 @@
+{
+  "spec_version": "1.0",
+  "episode": 14,
+  "title": "수능 출제위원 — 단원·배점만 말하면 문제지 + 해설집",
+  "video_id": "jQOt22OmZCQ",
+  "release": "v13.0",
+  "summary": "수능 수학 출제 스킬(suneung-maker). 과목·단원·배점(2·3·4점)·문항 수를 받아 설계표 → 새 문제(오답 선지마다 노린 실수) → 독립 검증(정답 가리고 다시 풀기 + sympy 계산·전수 조사) → 해설집(출제 의도·단계 풀이·다른 풀이·선지별 오답 분석·쌍둥이 문제) → 난이도 판정(예상 정답률·풀이 시간, AI 추정)까지 만들고 학생용 문제지·해설집을 따로 낸다(크롬/엣지로 A4 PDF). 기출 해설 모드는 사용자가 직접 가진 기출 파일로만(개인 공부용). 2027학년도 수능(2015 개정) 범위. 스킬에 기출 파일 없음.",
+  "requires": [],
+  "recommends": [
+    1,
+    6
+  ],
+  "check": {
+    "mac": "~/.claude/skills/suneung-maker/SKILL.md 가 있는지",
+    "win": "%USERPROFILE%\\.claude\\skills\\suneung-maker\\SKILL.md 가 있는지",
+    "ask": "수능 출제위원 스킬(suneung-maker)이 이미 설치돼 있는지 확인한다",
+    "note": "다시 설치하면 스킬 폴더만 덮어쓴다. 사용자가 만든 문제지·해설집은 건드리지 않는다."
+  },
+  "files": [
+    {
+      "name": "0-suneung-maker.md",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v13.0/0-suneung-maker.md",
+      "role": "스킬 소개 · 설치 · 준비물(파이썬+sympy, PDF는 크롬/엣지) · 빠른 테스트 · 저작권 주의",
+      "required": true,
+      "read_first": true
+    },
+    {
+      "name": "suneung-maker.zip",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v13.0/suneung-maker.zip",
+      "role": "suneung-maker/ — SKILL.md · reference(출제 범위·난이도 기준) · templates(문제지·해설집·기출 해설·검증) · scripts/render_pdf.py · assets/base.css · examples(시험판 3문항)",
+      "required": true,
+      "read_first": false
+    }
+  ],
+  "steps": [
+    {
+      "n": 1,
+      "actor": "ai",
+      "do": "0-suneung-maker.md 를 읽고, '배점·정답률은 AI 추정, 평가원과 무관한 연습용, AI도 틀리니 검증 필수, 기출은 개인 공부용'을 사람에게 먼저 전한다"
+    },
+    {
+      "n": 2,
+      "actor": "ai",
+      "do": "suneung-maker.zip 을 받아 스킬 폴더(~/.claude/skills/, 윈도우 %USERPROFILE%\\.claude\\skills\\)에 풀어 suneung-maker/SKILL.md 가 바로 있게 한다"
+    },
+    {
+      "n": 3,
+      "actor": "ai",
+      "do": "파이썬(3.10+)이 있으면 python -m pip install sympy 를 실행한다. 없으면 설치할지 사람에게 묻는다"
+    },
+    {
+      "n": 4,
+      "actor": "human",
+      "do": "파이썬이 없으면 설치 창에서 직접 '설치'(윈도우는 'Add python.exe to PATH' 체크)를 누른다",
+      "why": "운영체제 설치 창은 사람이 눌러야 한다."
+    },
+    {
+      "n": 5,
+      "actor": "human",
+      "do": "클로드 코드를 한 번 껐다 켠다",
+      "why": "새 스킬은 다시 시작해야 잡힌다."
+    },
+    {
+      "n": 6,
+      "actor": "ai",
+      "do": "'수열로 3점짜리 두 문제 내 줘', 'PDF로 만들어 줘', '정답 가리고 다시 풀어 봐' 예시를 안내한다"
+    }
+  ],
+  "verify": "스킬 폴더에 suneung-maker/SKILL.md 가 있고, 다시 시작한 뒤 '수열로 3점짜리 한 문제 내 줘'에 설계표·문제·검증 결과가 나오면 끝."
+}
