@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>편남 스타터 팩 — 스킬 고르기</title>
+<style>
+  :root{
+    --bg:#0d1730; --panel:#14203f; --line:#24335c;
+    --ink:#f3eee4; --mut:#b9c1d6; --dim:#97a2bf;
+    --acc:#ff8a2b; --acc-ink:#1a0f02;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink)}
+  body{font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","맑은 고딕",system-ui,sans-serif;
+       line-height:1.5;-webkit-text-size-adjust:100%;word-break:keep-all}
+  .wrap{max-width:760px;margin:0 auto;padding:28px 18px 150px}
+  header h1{font-size:26px;margin:0 0 6px;letter-spacing:-.5px}
+  header h1 b{color:var(--acc)}
+  header p{margin:0 0 4px;color:var(--mut);font-size:16px}
+  header p b{color:var(--ink)}
+  header p.note{font-size:14px;color:var(--dim)}
+  .steps{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 22px;padding:0;list-style:none}
+  .steps li{background:var(--panel);border:1px solid var(--line);border-radius:999px;
+            padding:6px 12px;font-size:14px;color:var(--mut)}
+  .steps li b{color:var(--acc);margin-right:4px}
+
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px}
+  .count{font-size:15px;color:var(--mut)}
+  .count b{color:var(--acc);font-size:18px}
+  .bar .btns{display:flex;gap:12px}
+  .bar .btns button{min-height:48px}
+  button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--line);
+         background:var(--panel);color:var(--ink);padding:9px 14px;font-size:15px}
+  button:hover{border-color:var(--acc)}
+  button:focus-visible,label:focus-within{outline:3px solid var(--acc);outline-offset:2px}
+
+  h2{font-size:15px;color:var(--dim);font-weight:600;margin:22px 0 8px;letter-spacing:.2px}
+  h2 small{font-weight:400}
+  .list{display:grid;gap:8px}
+  label.item{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;
+             background:var(--panel);border:1.5px solid var(--line);border-radius:14px;
+             padding:13px 14px;cursor:pointer;transition:opacity .15s,border-color .15s}
+  label.item input{appearance:none;-webkit-appearance:none;width:26px;height:26px;margin:1px 0 0;
+             border:2px solid var(--dim);border-radius:7px;display:grid;place-content:center;cursor:pointer}
+  label.item input::after{content:"";width:12px;height:7px;border:3px solid var(--acc-ink);
+             border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-2px);opacity:0}
+  label.item input:checked{background:var(--acc);border-color:var(--acc)}
+  label.item input:checked::after{opacity:1}
+  label.item:has(input:checked){border-color:rgba(255,138,43,.6)}
+  label.item:not(:has(input:checked)){background:#0f1934;border-style:dashed}
+  .state{margin-left:auto;font-size:13px;font-weight:700;border-radius:999px;padding:1px 9px;white-space:nowrap}
+  label.item:has(input:checked) .state{background:rgba(255,138,43,.16);color:var(--acc)}
+  label.item:has(input:checked) .state::before{content:"설치 포함"}
+  label.item:not(:has(input:checked)) .state{background:rgba(151,162,191,.16);color:var(--mut)}
+  label.item:not(:has(input:checked)) .state::before{content:"설치 제외"}
+  .top{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .ep{font-size:13px;font-weight:700;color:var(--acc);border:1px solid rgba(255,138,43,.5);
+      border-radius:6px;padding:0 6px}
+  .name{font-size:17px;font-weight:700}
+  .new{font-size:12px;font-weight:700;color:var(--acc-ink);background:var(--acc);border-radius:6px;padding:0 6px}
+  .desc{display:block;color:var(--mut);font-size:16px;line-height:1.6;margin-top:3px}
+  .hand{display:inline-block;margin-top:6px;font-size:14px;color:var(--mut);
+        background:rgba(151,162,191,.12);border-radius:6px;padding:1px 8px}
+
+  .out{margin-top:28px;background:#0a1226;border:1.5px solid var(--acc);border-radius:16px;padding:16px}
+  .out h3{margin:0 0 4px;font-size:17px}
+  .out p.help{margin:0 0 10px;color:var(--mut);font-size:14px}
+  textarea{width:100%;min-height:220px;resize:vertical;background:transparent;color:var(--ink);
+           border:1px solid var(--line);border-radius:10px;padding:12px;font:14px/1.55 ui-monospace,Menlo,Consolas,"Malgun Gothic",monospace}
+  .copy{width:100%;margin-top:10px;background:var(--acc);color:var(--acc-ink);border:0;
+        font-size:18px;font-weight:800;padding:14px}
+  .copy:disabled{opacity:.4;cursor:not-allowed}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px;padding:0;list-style:none}
+  .chips li{background:rgba(255,138,43,.14);color:var(--ink);border-radius:8px;padding:3px 9px;font-size:14px}
+  .chips li b{color:var(--acc);margin-right:3px}
+  .toast{min-height:24px;margin-top:8px;text-align:center;color:var(--acc);font-size:15px;line-height:1.5}
+  .dock{position:fixed;left:0;right:0;bottom:0;background:rgba(10,18,38,.96);border-top:1.5px solid var(--acc);
+        padding:10px 14px calc(10px + env(safe-area-inset-bottom))}
+  .dock .in{max-width:760px;margin:0 auto;display:flex;gap:12px;align-items:center}
+  .dock .sum{flex:1;font-size:15px;color:var(--mut);line-height:1.4}
+  .dock .sum b{color:var(--acc);font-size:17px}
+  .dock .sum .last{display:block;color:var(--ink);font-size:14px;min-height:20px}
+  .dock .copy{width:auto;margin:0;font-size:16px;padding:12px 16px;min-height:48px}
+  footer{margin-top:24px;color:var(--dim);font-size:13px}
+  @media (max-width:520px){
+    header h1{font-size:22px}
+    .bar{flex-direction:column;align-items:stretch}
+    .bar .btns button{flex:1}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>편남 스타터 팩 <b>스킬 고르기</b></h1>
+    <p>스킬은 AI 비서한테 주는 작업 설명서입니다. 처음엔 <b><span id="total"></span>개 모두 체크</b>되어 있습니다.</p>
+    <p class="note">영상 녹화 뒤 <b>14화 수능 출제위원</b>이 공개돼 하나 늘었습니다.</p>
+    <p>안 쓸 것만 체크를 푸세요. 푼 스킬은 아래 설치 문장에서 이름과 링크가 빠져서, <b>AI 비서한테 아예 전달되지 않습니다.</b></p>
+  </header>
+  <ol class="steps">
+    <li><b>1</b>안 쓸 것만 체크 풀기</li>
+    <li><b>2</b>설치 문장 복사</li>
+    <li><b>3</b>클로드 앱 Code 탭에 붙여 넣고 보내기</li>
+  </ol>
+
+  <div class="bar">
+    <div class="count" id="count" aria-live="polite"></div>
+    <div class="btns">
+      <button type="button" id="all">전체 선택</button>
+      <button type="button" id="none">전체 해제</button>
+    </div>
+  </div>
+
+  <h2>추가 준비 없음 <small>· 붙여 넣으면 바로 설치됩니다</small></h2>
+  <div class="list" id="basic"></div>
+  <h2>직접 할 단계 있음 <small>· 설치 중에 직접 눌러 줄 것이 있습니다</small></h2>
+  <div class="list" id="hands"></div>
+
+  <section class="out">
+    <h3>AI 비서한테 붙여 넣을 설치 문장</h3>
+    <p class="help">체크한 스킬만 들어 있고, 설치는 회차 순서대로 합니다. 체크를 풀어도 이미 깔린 스킬은 지워지지 않습니다. 나중에 더 넣고 싶으면 다시 체크해서 복사하세요.</p>
+    <ul class="chips" id="chips"></ul>
+    <textarea id="msg" readonly aria-label="설치 문장"></textarea>
+    <button type="button" class="copy" id="copy">복사</button>
+    <div class="toast" id="toast" aria-live="polite"></div>
+  </section>
+
+  <div class="dock"><div class="in">
+    <div class="sum" aria-live="polite"><span id="dsum"></span><span class="last" id="last"></span></div>
+    <button type="button" class="copy" id="copy2">복사</button>
+  </div></div>
+  <footer>편하게 살고 싶은 남자 편남 · 파일 출처 github.com/PNam-Up/claude-code-kit</footer>
+</div>
+
+<script>
+const BASE = "https://raw.githubusercontent.com/PNam-Up/claude-code-kit/main/specs/";
+const SKILLS = [
+  {ep:5,  name:"여행 계획",          desc:"어디로 며칠 가는지만 말하면 객관식으로 물어 가며 일정표를 짜 줍니다", spec:"ep5.json", note:"파일 맨 위에 머리말이 없으니 name: pyeonnam-travel-planner, description: \"여행 계획 짜줘\" 하면 객관식으로 물어 가며 일정표를 짜 준다(편남 5화) 를 붙여 스킬로 넣기"},
+  {ep:6,  name:"링크 하나로 설치",    desc:"앞으로 편남 영상 링크만 주면 그 회차 것을 알아서 깔아 줍니다", spec:"0-link-installer.md"},
+  {ep:7,  name:"주식 기본",          desc:"AI에게 어디까지 맡길지 정하는 규칙과 물어볼 질문 모음 (자동매매 아님)", spec:"ep7.json"},
+  {ep:8,  name:"AI 직원 셋",         desc:"\"셋이서 해 줘\" 한마디로 조사·작성·검사를 나눠 하고 서로 검사합니다", spec:"ep8.json"},
+  {ep:10, name:"쉬운 말 비서",        desc:"어려운 말은 풀어 주고, AI에게 시킬 말도 객관식으로 대신 짜 줍니다", spec:"ep10.json"},
+  {ep:3,  name:"가계부 자동화",       desc:"카드 결제 내역을 모아 매일 밤 오늘 쓴 돈을 보내 줍니다", spec:"ep3.json", hand:"Gmail 동의 · 안드로이드 앱 · 텔레그램"},
+  {ep:4,  name:"원하는 알림",         desc:"뉴스·시장·부동산·공연·생활·로또 중 고른 알림만 텔레그램으로", spec:"ep4.json", hand:"텔레그램 봇 만들기"},
+  {ep:9,  name:"사진 보정",          desc:"내 보정 스타일을 배워 넣는 사진마다 똑같이 입혀 줍니다", spec:"ep9.json", hand:"파이썬 설치 · 사진 고르기"},
+  {ep:11, name:"회사 자료 먼저 가리기", desc:"엑셀을 AI가 보기 전에 내 컴퓨터가 먼저 가립니다", spec:"ep11.json", hand:"파이썬 설치 · 빈 양식 · 앱 재시작"},
+  {ep:12, name:"제안서",             desc:"질문 여섯 개에 답하면 조사부터 검사까지 거쳐 워드·파워포인트로", spec:"ep12.json", hand:"파이썬 설치"},
+  {ep:13, name:"자동 색인 폴더",      desc:"폴더에 넣기만 하면 원본을 넘기지 않고 말로 찾아 줍니다", spec:"ep13.json", hand:"파이썬 설치 · 폴더 고르기 · 앱 재시작"},
+  {ep:14, name:"수능 출제위원",       desc:"단원·배점만 말하면 새 수능형 수학 문제지와 해설집을 만들어 줍니다", spec:"ep14.json", hand:"파이썬 설치(검산용) · 앱 재시작", isNew:true},
+];
+
+const $ = id => document.getElementById(id);
+function render(){
+  for (const s of SKILLS){
+    const box = s.hand ? $("hands") : $("basic");
+    const el = document.createElement("label");
+    el.className = "item";
+    el.innerHTML =
+      `<input type="checkbox" checked data-ep="${s.ep}">` +
+      `<span><span class="top"><span class="ep">${s.ep}화</span><span class="name">${s.name}</span>${s.isNew ? '<span class="new">새로 추가</span>' : ""}<span class="state"></span></span>` +
+      `<span class="desc">${s.desc}</span>` +
+      (s.hand ? `<span class="hand">준비할 것: ${s.hand}</span>` : "") + `</span>`;
+    box.appendChild(el);
+  }
+}
+function boxes(){ return [...document.querySelectorAll("input[data-ep]")]; }
+function chosen(){
+  const on = new Set(boxes().filter(b => b.checked).map(b => +b.dataset.ep));
+  return SKILLS.filter(s => on.has(s.ep)).sort((a,b) => a.ep - b.ep);
+}
+function message(list){
+  if (!list.length) return "";
+  const lines = list.map((s,i) => `${i+1}. ${s.ep}화 ${s.name} — ${BASE}${s.spec}` + (s.note ? ` (${s.note})` : ""));
+  return [
+    "[편남 스타터 팩 — 선택 목록]",
+    `아래 ${list.length}개 스킬만 설치해 줘. 목록에 없는 편남 스킬은 찾아보지도, 설치하지도 마.`,
+    "",
+    ...lines,
+    "",
+    "설치 방법:",
+    "- 링크는 회차별 설치 명세야. 회차 번호가 작은 것부터 하나씩 읽고 명세에 적힌 대로만 설치해 줘(지어내지 말 것).",
+    "- 스킬 폴더는 ~/.claude/skills/ (윈도우는 %USERPROFILE%\\.claude\\skills\\). 이미 깔린 건 건너뛰어.",
+    "- 회차마다 받은 스킬 파일(.md)은 ~/.claude/skills/<이름>/SKILL.md 로 넣어서 다음부터 말로 부를 수 있게 해 줘. 명세가 '받아 읽는다'만 적혀 있어도 마찬가지야.",
+    "- 명세의 requires: [1](1화 AI 비서)은 지금 이 글을 읽는 너 자신이니 이미 된 걸로 보고, 옛 1화 설치 키트는 깔지 마.",
+    "- 설치에 꼭 필요한 내 단계(프로그램 설치 창 · 계정 동의 · 봇 만들기 · 폴더 고르기)에서는 멈추고, 할 일과 이유를 말해 준 뒤 기다려 줘. 앱 재시작은 맨 마지막에 한 번만.",
+    "- 설치가 끝난 뒤 '써 보는' 단계(여행지 정하기 · 단계 고르기 · '셋이서 해줘' 해 보기 같은 것)는 지금 하지 말고 마지막 표의 '써 보는 말'로만 알려 줘.",
+    "- 하나가 실패해도 나머지는 계속해 줘.",
+    "- 끝나면 표로 알려 줘: 회차 · 이름 · 결과(설치됨/이미 있음/실패 이유) · 써 보는 말.",
+  ].join("\n");
+}
+function update(changed){
+  const list = chosen(), n = list.length, off = SKILLS.length - n;
+  $("count").innerHTML = `<b>${n}</b> / ${SKILLS.length}개 선택`;
+  $("dsum").innerHTML = n ? `<b>${n}개</b> 포함 · ${off}개 제외` : `<b>0개</b> — 하나 이상 체크해 주세요`;
+  if (changed){
+    const s = SKILLS.find(x => x.ep === +changed.dataset.ep);
+    const c = s.name.charCodeAt(s.name.length-1), jong = c >= 0xAC00 && c <= 0xD7A3 && (c-0xAC00) % 28 > 0;
+    $("last").textContent = changed.checked ? `‘${s.name}’${jong?"을":"를"} 설치 문장에 넣었습니다` : `‘${s.name}’${jong?"이":"가"} 설치 문장에서 빠졌습니다`;
+  } else $("last").textContent = "";
+  $("chips").innerHTML = list.map(s => `<li><b>${s.ep}화</b>${s.name}</li>`).join("");
+  $("msg").value = n ? message(list) : "선택한 스킬이 없습니다. 하나 이상 체크해 주세요.";
+  for (const id of ["copy","copy2"]){ $(id).disabled = !n; }
+  $("copy").textContent = n ? `선택한 ${n}개 설치 문장 복사` : "복사할 스킬이 없습니다";
+  $("copy2").textContent = n ? "복사" : "선택 없음";
+  $("toast").textContent = "";
+}
+async function copy(){
+  const t = $("msg").value;
+  let ok = false;
+  try { await navigator.clipboard.writeText(t); ok = true; } catch(e) {}
+  if (!ok){                       // file:// 나 오래된 브라우저
+    const ta = $("msg"); ta.removeAttribute("readonly"); ta.select();
+    try { ok = document.execCommand("copy"); } catch(e) {}
+    ta.setAttribute("readonly","");
+    if (ok) window.getSelection().removeAllRanges();
+  }
+  const msg = ok ? "복사했습니다. Code 탭 입력창에 붙여 넣으세요." : "자동 복사가 안 됐습니다. 글을 전부 선택해 뒀으니 PC는 Ctrl+C(맥 ⌘+C), 폰은 길게 눌러 '복사'를 누르세요.";
+  $("toast").textContent = msg;
+  $("last").textContent = msg;
+}
+$("total").textContent = SKILLS.length;
+render(); update();
+document.addEventListener("change", e => { if (e.target.matches("input[data-ep]")) update(e.target); });
+$("all").onclick  = () => { boxes().forEach(b => b.checked = true);  update(); };
+$("none").onclick = () => { boxes().forEach(b => b.checked = false); update(); };
+$("copy").onclick = copy;
+$("copy2").onclick = copy;
+</script>
+</body>
+</html>

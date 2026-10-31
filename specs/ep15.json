@@ -1,0 +1,43 @@
+{
+  "spec_version": "1.0",
+  "episode": 15,
+  "title": "AI 비서 간편 설치 — 공식 앱 Code 탭 + 스타터 팩",
+  "video_id": "TBD",
+  "release": "v14.0",
+  "summary": "Claude 데스크톱 앱의 Code 탭으로 AI 비서를 쓰고, 편남 스타터 팩으로 지금까지 배포한 스킬을 한 번에 깐다. 터미널·설치 키트 필요 없음.",
+  "requires": [],
+  "check": {
+    "ask": "Claude 데스크톱 앱에서 Code 탭을 열 수 있는지(유료 요금제로 로그인했는지) 물어본다",
+    "note": "이 파일을 Code 탭(또는 터미널 Claude Code)에서 읽고 있다면 AI 비서는 이미 있는 것이다."
+  },
+  "files": [
+    {
+      "name": "0-starter-pack.md",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v14.0/0-starter-pack.md",
+      "role": "스타터 팩 목차 — 메뉴·설치 순서·확인",
+      "required": true,
+      "read_first": true
+    },
+    {
+      "name": "picker.html",
+      "url": "https://github.com/PNam-Up/claude-code-kit/releases/download/v14.0/picker.html",
+      "role": "스킬 고르기 페이지 — 체크한 스킬만 담은 설치 문장(선택 목록)을 만든다",
+      "required": false
+    }
+  ],
+  "steps": [
+    {
+      "n": 1,
+      "actor": "human",
+      "do": "claude.com/download 에서 앱을 받아 설치하고, 유료 요금제 계정으로 로그인한 뒤 Code 탭을 연다",
+      "why": "앱 설치와 로그인은 본인 계정으로만 할 수 있다."
+    },
+    {
+      "n": 2,
+      "actor": "ai",
+      "do": "사용자 메시지에 '[편남 스타터 팩 — 선택 목록]'이 있으면 그 목록만 설치한다(목록 밖 스킬은 말하지도 깔지도 않음). 없으면 0-starter-pack.md 를 받아 메뉴 → 고른 것 회차 순서대로 설치 → 확인 표. 고르기 페이지: https://pnam-up.github.io/claude-code-kit/"
+    }
+  ],
+  "verify": "마지막 확인 표가 나오고, 기본 묶음 스킬 하나(예: '셋이서 해줘')가 실제로 동작하면 성공.",
+  "picker": "https://pnam-up.github.io/claude-code-kit/"
+}
